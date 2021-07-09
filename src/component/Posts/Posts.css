@@ -1,0 +1,13 @@
+.card-body{
+    height:300px;
+}
+.card-body:hover{
+    background-color:#F6F6F6;
+}
+.card-design {
+    height: 30rem;
+}
+.card img{
+    height: 150px;
+    width: 100%;
+}

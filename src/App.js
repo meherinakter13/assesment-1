@@ -8,20 +8,21 @@ import {
 } from "react-router-dom";
 import Home from './component/Home/Home';
 import Header from './component/Header/Header';
+import Registration from "./component/Registration/Registration";
 
 function App() {
   return (
     <Router>
       <Header></Header>
      <Switch>
-          <Route path="/about">
-            {/* <About /> */}
+          <Route path="/registration">
+            <Registration/>
           </Route>
-          <Route exact path="/">
+          {/* <Route exact path="/">
             <Home></Home>
-          </Route>
+          </Route> */}
           <Route path="/post">
-            <Home></Home>
+            <Home/>
           </Route>
         </Switch>
     </Router>

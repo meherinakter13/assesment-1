@@ -14,12 +14,14 @@ const Home = () => {
     const allPosts = posts.slice(0, 8);
     return (
         <div className="row m-0">
+
             {
-                allPosts.map.length === 0 && <p>loading..........</p>
+                allPosts.length === 0 && <img style={{marginLeft:"530px"}} src="https://lh3.googleusercontent.com/proxy/ThssABM_pMoDKN50DflhcwARyGwzd279Y8Gwiysoj1xi3LLTrq5zaQZOXE-0n-HIRZK_c9c19x88bYt0Zm6iF08KcZtLekrLlk22wXK7UQ" alt="" />
             }
             {
                 allPosts.map(post => <div className="col-lg-3 col-md-6 col-sm-12"> <Posts post={post}></Posts></div>)
             }
+            
         </div>
     );
 };
