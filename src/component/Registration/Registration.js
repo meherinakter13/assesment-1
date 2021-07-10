@@ -1,41 +1,78 @@
 import React, { useState } from 'react';
-import user from'../../images/user.png';
+import user from '../../images/user.png';
 
 const Registration = () => {
+    const [error, setError] = useState("");
     const [info, setInfo] = useState({
-        address:"",
-        agreed:false,
-        district:"",
-        email:"",
-        firstName:"",
-        gender:"",
-        lastName:"",
-        phone:"",
-        userName:""
+        address: "",
+        agreed: false,
+        district: "",
+        email: "",
+        firstName: "",
+        gender: "",
+        lastName: "",
+        phone: "",
+        userName: ""
 
     })
-    const handleBlur = (event) =>{
-        let isFieldValid =true; 
-        if(event.target.name === "phone"){
-          const isPhoneNumValid =/^(?:\+88|88)?(01[3-9]\d{8})$/.test(event.target.value);
-          isFieldValid = isPhoneNumValid;
-        }
-        else if(isFieldValid){
-          const newInfo = {...info};
-          newInfo[event.target.name] = event.target.value;
-          setInfo(newInfo);
-        } 
-      }
- 
-    const handleSubmit = (e) =>{
+    const validEmail = (email) => {
+        const isPhoneEmailValid = /\S+@\S+\.\S+/.test(email);
+        return isPhoneEmailValid;
+    }
+
+    const validNum = (num) => {
+        const isPhoneNumValid = /^(?:\+88|88)?(01[3-9]\d{8})$/.test(num);
+        return isPhoneNumValid;
+    }
+
+    const handleBlur = (event) => {
+        const newInfo = { ...info };
+        newInfo[event.target.name] = event.target.value;
+        setInfo(newInfo);
+    }
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!info.address) {
+            setError("Enter Your address")
+            return;
+        }
+        if (!info.district) {
+            setError("Enter Your district")
+            return;
+        }
+        if (!validEmail(info.email)) {
+            setError("Enter email address")
+            return;
+        }
+        if (!info.firstName) {
+            setError("Enter Your firstName")
+            return;
+        }
+        if (!info.gender) {
+            setError("Enter Your gender")
+            return;
+        }
+        if (!info.lastName) {
+            setError("Enter Your lastName")
+            return;
+        }
+        if (!validNum(info.phone)) {
+            setError("Enter valid phone number")
+            return;
+        }
+        if (!info.userName) {
+            setError("Enter Your userName")
+            return;
+        }
         console.log(info)
     }
+
 
     return (
         <section className="container-fluid row m-0 " >
             <div className="col-md-12 col-sm-12 ">
-                <img style={{ height:"50px",width:"50px",display: "block",marginLeft: "auto",marginRight: "auto"}} src={user} alt="" />
+                <img style={{ height: "50px", width: "50px", display: "block", marginLeft: "auto", marginRight: "auto" }} src={user} alt="" />
                 <h2 className="text-brand fw-bolder text-center">Register user</h2>
                 <form class="row m-0 p-5" onSubmit={handleSubmit}>
                     <div className="col-md-6 p-2">
@@ -57,7 +94,7 @@ const Registration = () => {
                         <textarea class="form-control" onChange={handleBlur} name="address" placeholder="Address" rows="2" required></textarea>
                     </div>
                     <div className="col-md-6 p-2">
-                        <select onChange={handleBlur} name="district" id="inputState"  placeholder="District" required class="form-control">
+                        <select onChange={handleBlur} name="district" id="inputState" placeholder="District" required class="form-control">
                             <option>District</option>
                             <option>Dhaka</option>
                             <option>Munshigonj</option>
@@ -83,14 +120,12 @@ const Registration = () => {
                             <label class="form-check-label" for="inlineRadio3">Other</label>
                         </div>
                     </div>
-                   <div class="form-check col-md-12">
-                        <input type="checkbox" onChange={handleBlur} name="agreed" value="true"class="form-check-input" />
+                    <div class="form-check col-md-12">
+                        <input type="checkbox" onChange={handleBlur} name="agreed" value="true" class="form-check-input" />
                         <label class="form-check-label" for="exampleCheck1">I want to receive inspiration, marketing promotions and update via email.</label>
                     </div>
-                    
-                   
                     <div className="col-md-12">
-                        <input type="submit" className="mt-3 btn btn-secondary w-100" />
+                        <input type="submit" disabled={!validEmail(info.email) || !validNum(info.phone) || !info.firstName || !info.lastName || !info.address || !info.district || !info.gender || !info.userName} className="mt-3 btn btn-secondary w-100" />
                     </div>
                 </form>
             </div>
